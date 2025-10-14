@@ -85,6 +85,18 @@ export class KindeAngularService implements OnDestroy {
     ));
   }
 
+  getOrganization(): Observable<{ orgCode: string | null }> {
+    return this.isAuthenticated$.pipe(
+      filter(_ => this.kindeClient !== null),
+      switchMap(isAuthenticated =>
+        iif(
+          () => isAuthenticated,
+          from(this.kindeClient!.getOrganization()),
+          of({ orgCode: null })
+        )
+    ));
+  }
+
   getAccessToken(): Promise<string> {
     if(!this.kindeClient) throw new Error("kindeClient is null");
     return this.kindeClient.getToken();
