@@ -133,6 +133,12 @@ export class KindeAngularService implements OnDestroy {
     this.document.location.href = registerUrl.href;
   }
 
+  async register_with_org(options?: RegisterURLOptions): Promise<void> {
+    if(!this.kindeClient) throw new Error("kindeClient is null");
+    const registerUrl = await this.kindeClient.createOrg(options);
+    this.document.location.href = registerUrl.href;
+  }
+
   private shouldHandleCallback(): Observable<boolean> {
     return of(this.document.location.search)
       .pipe(
