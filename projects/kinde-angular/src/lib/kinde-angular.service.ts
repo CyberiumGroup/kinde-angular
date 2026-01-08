@@ -97,6 +97,10 @@ export class KindeAngularService implements OnDestroy {
     ));
   }
 
+  getPermissions() {
+    return this.kindeClient?.getPermissions();
+  }
+
   getAccessToken(): Promise<string> {
     if(!this.kindeClient) throw new Error("kindeClient is null");
     return this.kindeClient.getToken();
